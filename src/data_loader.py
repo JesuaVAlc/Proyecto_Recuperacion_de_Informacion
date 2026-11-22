@@ -3,7 +3,7 @@ import json
 import random
 from pathlib import Path
 
-from datasets import load_dataset
+
 
 import config
 
@@ -18,6 +18,7 @@ def _campo(fila, *nombres):
 
 
 def _cargar_split(configuracion, split_preferido):
+    from datasets import load_dataset
     ds = load_dataset(config.DATASET_HF, configuracion)
     if split_preferido in ds:
         return ds[split_preferido]
@@ -55,6 +56,7 @@ def cargar_corpus_completo():
 
 
 def cargar_qrels(split=None):
+    from datasets import load_dataset
     """Retorna {query_id: {doc_id: relevancia}} solo con relevancia > 0."""
     split = split or config.SPLIT_QRELS
     ds = load_dataset(config.DATASET_HF, "default")[split]

@@ -1,8 +1,7 @@
-datasets>=2.19
+fastapi>=0.115
+uvicorn>=0.30
 numpy>=1.26,<3
 nltk>=3.9
 faiss-cpu>=1.8
-fastembed>=0.3          # embeddings 
+fastembed>=0.3
 tqdm>=4.66
-flask>=3.0
-gunicorn>=22.0

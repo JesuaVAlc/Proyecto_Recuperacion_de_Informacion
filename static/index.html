@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sistema de Recuperación de Información</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --surface: #1e293b;
+      --surface-2: #273549;
+      --border: #334155;
+      --text: #f1f5f9;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --green: #34d399;
+      --amber: #fbbf24;
+      --red: #f87171;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+    }
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    header h1 { margin: 0; font-size: 1.2rem; }
+    header .meta { font-size: 0.85rem; color: var(--muted); }
+    main { max-width: 1320px; margin: 1.25rem auto; padding: 0 1rem 2.5rem; }
+
+    .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+    .tab {
+      background: var(--surface);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      padding: 0.55rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    .tab.active { background: var(--accent); color: #0f172a; border-color: var(--accent); }
+    .panel { display: none; }
+    .panel.active { display: block; }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      background: var(--surface);
+      padding: 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      margin-bottom: 1rem;
+    }
+    input[type="text"], select {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 0.55rem 0.75rem;
+      font-size: 0.95rem;
+    }
+    input[type="text"] { flex: 1 1 320px; }
+    button.primary {
+      background: var(--accent);
+      color: #0f172a;
+      border: none;
+      border-radius: 6px;
+      padding: 0.55rem 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    button.primary:disabled { opacity: 0.5; cursor: wait; }
+
+    .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
+    .chip {
+      background: var(--surface-2);
+      color: var(--muted);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 0.25rem 0.7rem;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .chip:hover { color: var(--text); border-color: var(--accent); }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      margin-bottom: 0.75rem;
+    }
+    .card.shared { border-left: 4px solid var(--green); }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+    .badge {
+      background: var(--surface-2);
+      color: var(--accent);
+      padding: 0.15rem 0.5rem;
+      border-radius: 6px;
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+    .badge.green { color: var(--green); }
+    .badge.red { color: var(--red); }
+
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 0.9rem;
+    }
+    .col-title {
+      background: var(--surface-2);
+      padding: 0.6rem 0.8rem;
+      border-radius: 8px;
+      margin-bottom: 0.65rem;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+    }
+    th, td {
+      padding: 0.7rem 0.9rem;
+      border-bottom: 1px solid var(--border);
+      text-align: left;
+      font-size: 0.92rem;
+    }
+    th { background: var(--surface-2); color: var(--muted); }
+    .chart-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1.5rem;
+      max-height: 360px;
+    }
+    .status { color: var(--muted); font-size: 0.9rem; margin: 0.5rem 0 1rem; }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 1rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Sistema de Recuperación de Información (FiQA)</h1>
+    <div class="meta" id="meta-info">Cargando información del corpus...</div>
+  </header>
+
+  <main>
+    <div class="tabs">
+      <button class="tab active" data-tab="buscar">Búsqueda Individual</button>
+      <button class="tab" data-tab="comparar">Comparar Modelos</button>
+      <button class="tab" data-tab="metricas">Métricas de Evaluación</button>
+    </div>
+
+    <!-- TAB 1: BÚSQUEDA -->
+    <section id="panel-buscar" class="panel active">
+      <form class="controls" id="form-buscar">
+        <input type="text" id="q-buscar" placeholder="Escribe una consulta en inglés (ej. capital gains tax on stock dividends)" required />
+        <select id="modelo-select">
+          <option value="binario">Binario (Jaccard)</option>
+          <option value="tfidf">Vectorial (TF-IDF)</option>
+          <option value="bm25" selected>Probabilístico (BM25)</option>
+          <option value="embeddings">Vectorial (Embeddings)</option>
+        </select>
+        <select id="topn-buscar">
+          <option value="5">Top 5</option>
+          <option value="10" selected>Top 10</option>
+          <option value="15">Top 15</option>
+          <option value="20">Top 20</option>
+        </select>
+        <button type="submit" class="primary" id="btn-buscar">Buscar</button>
+      </form>
+      <div class="chips" id="chips-buscar"></div>
+      <div class="status" id="status-buscar"></div>
+      <div id="res-buscar"></div>
+    </section>
+
+    <!-- TAB 2: COMPARAR -->
+    <section id="panel-comparar" class="panel">
+      <form class="controls" id="form-comparar">
+        <input type="text" id="q-comparar" placeholder="Consulta para comparar los 4 modelos simultáneamente..." required />
+        <select id="topn-comparar">
+          <option value="3">Top 3</option>
+          <option value="5" selected>Top 5</option>
+          <option value="10">Top 10</option>
+        </select>
+        <button type="submit" class="primary" id="btn-comparar">Comparar</button>
+      </form>
+      <div class="chips" id="chips-comparar"></div>
+      <div class="status" id="status-comparar"></div>
+      <div class="grid-4" id="res-comparar"></div>
+    </section>
+
+    <!-- TAB 3: MÉTRICAS -->
+    <section id="panel-metricas" class="panel">
+      <div id="tabla-metricas"></div>
+      <div class="chart-box"><canvas id="chart-metricas"></canvas></div>
+      <div class="grid-2" id="casos-comparativos"></div>
+    </section>
+  </main>
+
+  <script>
+    const esc = (s) => String(s ?? "")
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;");
+
+    // Navegación de pestañas
+    let metricasCargadas = false;
+    document.querySelectorAll(".tab").forEach((btn) => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tab, .panel").forEach((el) => el.classList.remove("active"));
+        btn.classList.add("active");
+        document.getElementById("panel-" + btn.dataset.tab).classList.add("active");
+        if (btn.dataset.tab === "metricas" && !metricasCargadas) {
+          cargarMetricas();
+        }
+      });
+    });
+
+    // Cargar info inicial y ejemplos
+    async function cargarInfo() {
+      const res = await fetch("/api/info");
+      const data = await res.json();
+      document.getElementById("meta-info").textContent =
+        `Corpus: ${data.corpus_size.toLocaleString()} docs | Consultas eval: ${data.total_consultas_eval}`;
+
+      const renderChips = (containerId, inputId, formId) => {
+        const cont = document.getElementById(containerId);
+        cont.innerHTML = data.ejemplos.map((e) => `<button type="button" class="chip">${esc(e)}</button>`).join("");
+        cont.querySelectorAll(".chip").forEach((c) => {
+          c.addEventListener("click", () => {
+            document.getElementById(inputId).value = c.textContent;
+            document.getElementById(formId).requestSubmit();
+          });
+        });
+      };
+      renderChips("chips-buscar", "q-buscar", "form-buscar");
+      renderChips("chips-comparar", "q-comparar", "form-comparar");
+    }
+
+    // Búsqueda individual
+    document.getElementById("form-buscar").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const q = document.getElementById("q-buscar").value.trim();
+      const modelo = document.getElementById("modelo-select").value;
+      const topN = document.getElementById("topn-buscar").value;
+      const btn = document.getElementById("btn-buscar");
+      const status = document.getElementById("status-buscar");
+      const cont = document.getElementById("res-buscar");
+
+      btn.disabled = true;
+      status.textContent = "Buscando...";
+      try {
+        const res = await fetch(`/api/buscar?q=${encodeURIComponent(q)}&modelo=${modelo}&top_n=${topN}`);
+        const data = await res.json();
+        status.textContent = `${data.modelo} — ${data.resultados.length} resultados en ${data.latencia_ms} ms`;
+        if (!data.resultados.length) {
+          cont.innerHTML = `<div class="card">No se encontraron documentos para esta consulta.</div>`;
+          return;
+        }
+        cont.innerHTML = data.resultados.map((r, i) => `
+          <div class="card">
+            <div class="card-header">
+              <span><strong>#${i + 1}</strong> · Doc ID: <code>${esc(r.doc_id)}</code></span>
+              <span class="badge">Score: ${r.score}</span>
+            </div>
+            ${r.titulo ? `<div style="font-weight:700;margin-bottom:0.25rem;">${esc(r.titulo)}</div>` : ""}
+            <div style="font-size:0.92rem;">${esc(r.extracto)}</div>
+          </div>
+        `).join("");
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    // Comparación simultánea
+    document.getElementById("form-comparar").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const q = document.getElementById("q-comparar").value.trim();
+      const topN = document.getElementById("topn-comparar").value;
+      const btn = document.getElementById("btn-comparar");
+      const status = document.getElementById("status-comparar");
+      const cont = document.getElementById("res-comparar");
+
+      btn.disabled = true;
+      status.textContent = "Ejecutando los 4 modelos...";
+      try {
+        const res = await fetch(`/api/comparar?q=${encodeURIComponent(q)}&top_n=${topN}`);
+        const data = await res.json();
+        const nComp = Object.keys(data.compartidos).length;
+        status.textContent = `Top-${data.top_n} comparado entre los 4 modelos. Documentos compartidos entre 2 o más modelos (borde verde): ${nComp}.`;
+
+        const orden = ["binario", "tfidf", "bm25", "embeddings"];
+        cont.innerHTML = orden.map((clave) => {
+          const m = data.modelos[clave];
+          const cards = m.resultados.length
+            ? m.resultados.map((r, i) => {
+                const veces = data.compartidos[r.doc_id] || 1;
+                return `
+                  <div class="card ${veces > 1 ? "shared" : ""}">
+                    <div class="card-header">
+                      <span><strong>#${i + 1}</strong> · <code>${esc(r.doc_id)}</code></span>
+                      <span class="badge">${r.score}</span>
+                    </div>
+                    ${veces > 1 ? `<div style="margin-bottom:0.3rem;"><span class="badge green">En ${veces} modelos</span></div>` : ""}
+                    <div style="font-size:0.86rem;color:#cbd5e1;">${esc(r.extracto.slice(0, 200))}...</div>
+                  </div>
+                `;
+              }).join("")
+            : `<div class="card">Sin resultados.</div>`;
+
+          return `
+            <div>
+              <div class="col-title">
+                <span>${esc(m.modelo)}</span>
+                <span style="color:var(--muted);font-weight:500;">${m.latencia_ms} ms</span>
+              </div>
+              ${cards}
+            </div>
+          `;
+        }).join("");
+      } finally {
+        btn.disabled = false;
+      }
+    });
+
+    // Métricas y gráfico
+    async function cargarMetricas() {
+      const res = await fetch("/api/metricas");
+      const data = await res.json();
+      metricasCargadas = true;
+
+      const filas = data.resumen.map((m) => `
+        <tr>
+          <td><strong>${esc(m.modelo)}</strong></td>
+          <td>${m.MAP.toFixed(4)}</td>
+          <td>${m.Precision_promedio.toFixed(4)}</td>
+          <td>${m.Recall_promedio.toFixed(4)}</td>
+          <td>${m.latencia_promedio_ms.toFixed(2)} ms</td>
+        </tr>
+      `).join("");
+
+      document.getElementById("tabla-metricas").innerHTML = `
+        <table>
+          <thead>
+            <tr>
+              <th>Modelo</th>
+              <th>MAP@10</th>
+              <th>Precision@10</th>
+              <th>Recall@10</th>
+              <th>Latencia promedio</th>
+            </tr>
+          </thead>
+          <tbody>${filas}</tbody>
+        </table>
+      `;
+
+      new Chart(document.getElementById("chart-metricas"), {
+        type: "bar",
+        data: {
+          labels: data.resumen.map((m) => m.modelo),
+          datasets: [
+            { label: "MAP@10", data: data.resumen.map((m) => m.MAP), backgroundColor: "#38bdf8" },
+            { label: "Precision@10", data: data.resumen.map((m) => m.Precision_promedio), backgroundColor: "#fbbf24" },
+            { label: "Recall@10", data: data.resumen.map((m) => m.Recall_promedio), backgroundColor: "#34d399" }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: { legend: { labels: { color: "#f1f5f9" } } },
+          scales: {
+            x: { ticks: { color: "#cbd5e1" }, grid: { color: "#334155" } },
+            y: { beginAtZero: true, max: 0.65, ticks: { color: "#cbd5e1" }, grid: { color: "#334155" } }
+          }
+        }
+      });
+
+      const comp = data.comparativo || {};
+      const renderCasos = (titulo, lista, badgeClass) => {
+        if (!lista || !lista.length) return "";
+        const items = lista.slice(0, 3).map((c) => `
+          <div class="card">
+            <div class="card-header">
+              <span>QID <code>${esc(c.qid)}</code></span>
+              <span class="badge ${badgeClass}">ΔAP: ${c.delta_ap_sem_vs_lex > 0 ? "+" : ""}${c.delta_ap_sem_vs_lex}</span>
+            </div>
+            <div style="font-weight:600;margin-bottom:0.4rem;">${esc(c.consulta)}</div>
+            <div style="font-size:0.84rem;color:var(--muted);">
+              ${Object.entries(c.resultados).map(([k, v]) => `${esc(k)}: AP=${v.ap}`).join(" | ")}
+            </div>
+          </div>
+        `).join("");
+        return `<div><h3 style="margin-top:0;">${titulo}</h3>${items}</div>`;
+      };
+
+      document.getElementById("casos-comparativos").innerHTML =
+        renderCasos("Casos donde Embeddings supera a BM25 / TF-IDF", comp.mejora_semantica, "green") +
+        renderCasos("Casos donde BM25 / TF-IDF supera a Embeddings", comp.empeora_semantica, "red");
+    }
+
+    cargarInfo();
+  </script>
+</body>
+</html>

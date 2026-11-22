@@ -1,0 +1,508 @@
+{
+  "mejora_semantica": [
+    {
+      "qid": "15",
+      "consulta": "Can I send a money order from USPS as a business?",
+      "delta_ap_sem_vs_lex": 1.0,
+      "relevantes": [
+        {
+          "doc_id": "325273",
+          "extracto": "Sure you can.  You can fill in whatever you want in the From section of a money order, so your business name and address would be fine. The price only includes the money order itself.  You can hand deliver it yourself if..."
+        }
+      ],
+      "resultados": {
+        "Binario (Jaccard)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "397847",
+            "252097",
+            "330223"
+          ]
+        },
+        "Vectorial (TF-IDF)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "321826",
+            "373199",
+            "468361"
+          ]
+        },
+        "Probabilístico (BM25)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "321826",
+            "26979",
+            "582933"
+          ]
+        },
+        "Vectorial (Embeddings)": {
+          "ap": 1.0,
+          "recall": 1.0,
+          "top_3": [
+            "325273",
+            "478781",
+            "400947"
+          ]
+        }
+      }
+    },
+    {
+      "qid": "106",
+      "consulta": "What approaches are there for pricing a small business?",
+      "delta_ap_sem_vs_lex": 1.0,
+      "relevantes": [
+        {
+          "doc_id": "76695",
+          "extracto": "I don't have any experience in this, but this is my academic understanding of business pricing.  The LOWEST amount a seller would accept is the liquidation value. For a B&B, what would the value of the land, the house, t..."
+        }
+      ],
+      "resultados": {
+        "Binario (Jaccard)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "119210",
+            "179420",
+            "594175"
+          ]
+        },
+        "Vectorial (TF-IDF)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "64899",
+            "85639",
+            "553734"
+          ]
+        },
+        "Probabilístico (BM25)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "456390",
+            "178874",
+            "85639"
+          ]
+        },
+        "Vectorial (Embeddings)": {
+          "ap": 1.0,
+          "recall": 1.0,
+          "top_3": [
+            "76695",
+            "336601",
+            "262721"
+          ]
+        }
+      }
+    },
+    {
+      "qid": "604",
+      "consulta": "Is there a dollar amount that, when adding Massachusetts Sales Tax, precisely equals $200?",
+      "delta_ap_sem_vs_lex": 1.0,
+      "relevantes": [
+        {
+          "doc_id": "231947",
+          "extracto": "\"Don't worry about it.  The State doesn't care about rounding error.  All you need to do is say \"\"We charge our prices with tax included\"\" - you know, like carnivals and movie theaters.   Then follow the procedures your ..."
+        },
+        {
+          "doc_id": "261622",
+          "extracto": "Yes, it's a simple calculation. (x+0.0625x)=200 or x=200/1.0625 = $188.24 Technically $188.24 plus tax comes to $200.01. I would just eat the extra $0.01."
+        },
+        {
+          "doc_id": "451443",
+          "extracto": "No. $188.23 has $11.76 tax = $199.99 $188.24 has $11.77 tax - $200.01 So, unless the based price contained the half cent for $188.235, the register would never show $200.00 even. How does the receipt to customer look?"
+        }
+      ],
+      "resultados": {
+        "Binario (Jaccard)": {
+          "ap": 0.0333,
+          "recall": 0.3333,
+          "top_3": [
+            "19789",
+            "370950",
+            "231500"
+          ]
+        },
+        "Vectorial (TF-IDF)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "571430",
+            "268280",
+            "41403"
+          ]
+        },
+        "Probabilístico (BM25)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "571430",
+            "193396",
+            "554293"
+          ]
+        },
+        "Vectorial (Embeddings)": {
+          "ap": 1.0,
+          "recall": 1.0,
+          "top_3": [
+            "261622",
+            "451443",
+            "231947"
+          ]
+        }
+      }
+    },
+    {
+      "qid": "1074",
+      "consulta": "How common is “pass-through” health insurance?",
+      "delta_ap_sem_vs_lex": 1.0,
+      "relevantes": [
+        {
+          "doc_id": "443960",
+          "extracto": "\"Even though this isn't really personal finance related I still feel like there are some misconceptions here that could be addressed. I don't know where you got the phrase \"\"pass-through\"\" insurance from.  What you're de..."
+        }
+      ],
+      "resultados": {
+        "Binario (Jaccard)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "146351",
+            "533825",
+            "206879"
+          ]
+        },
+        "Vectorial (TF-IDF)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "544869",
+            "573394",
+            "461056"
+          ]
+        },
+        "Probabilístico (BM25)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "544869",
+            "187085",
+            "573394"
+          ]
+        },
+        "Vectorial (Embeddings)": {
+          "ap": 1.0,
+          "recall": 1.0,
+          "top_3": [
+            "443960",
+            "423191",
+            "588509"
+          ]
+        }
+      }
+    },
+    {
+      "qid": "1824",
+      "consulta": "Is there a way to open a U.S. bank account for my LLC remotely?",
+      "delta_ap_sem_vs_lex": 1.0,
+      "relevantes": [
+        {
+          "doc_id": "244808",
+          "extracto": "\"Yes, it is possible.  Although there may be red tape for a business account, Alliant Credit Union offers completely online signup and their representatives are reachable by email. You'll probably need to send in the LLC..."
+        }
+      ],
+      "resultados": {
+        "Binario (Jaccard)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "34306",
+            "346134",
+            "154988"
+          ]
+        },
+        "Vectorial (TF-IDF)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "264075",
+            "151023",
+            "154988"
+          ]
+        },
+        "Probabilístico (BM25)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "195207",
+            "88124",
+            "43217"
+          ]
+        },
+        "Vectorial (Embeddings)": {
+          "ap": 1.0,
+          "recall": 1.0,
+          "top_3": [
+            "244808",
+            "508754",
+            "195207"
+          ]
+        }
+      }
+    }
+  ],
+  "empeora_semantica": [
+    {
+      "qid": "9961",
+      "consulta": "Employer rollover from 403b to 401k?",
+      "delta_ap_sem_vs_lex": -1.0,
+      "relevantes": [
+        {
+          "doc_id": "21311",
+          "extracto": "\"403b plans are used by school districts, colleges and universities, nonprofit hospitals, charitable foundations and the like for their employees while 401k plans are used by most everybody else. I would suspect that a s..."
+        }
+      ],
+      "resultados": {
+        "Binario (Jaccard)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "581973",
+            "125973",
+            "217557"
+          ]
+        },
+        "Vectorial (TF-IDF)": {
+          "ap": 1.0,
+          "recall": 1.0,
+          "top_3": [
+            "21311",
+            "104134",
+            "125973"
+          ]
+        },
+        "Probabilístico (BM25)": {
+          "ap": 1.0,
+          "recall": 1.0,
+          "top_3": [
+            "21311",
+            "104134",
+            "24404"
+          ]
+        },
+        "Vectorial (Embeddings)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "104134",
+            "217557",
+            "529845"
+          ]
+        }
+      }
+    },
+    {
+      "qid": "9556",
+      "consulta": "How does pre-market trading work?",
+      "delta_ap_sem_vs_lex": -1.0,
+      "relevantes": [
+        {
+          "doc_id": "37040",
+          "extracto": "\"First of all, not all brokers allow trading during pre-market and post-market.  Some brokers only allow trading during the regular hours (9:30am - 4pm ET). Second of all, while you can place orders using limit orders an..."
+        }
+      ],
+      "resultados": {
+        "Binario (Jaccard)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "584350",
+            "503912",
+            "507710"
+          ]
+        },
+        "Vectorial (TF-IDF)": {
+          "ap": 0.5,
+          "recall": 1.0,
+          "top_3": [
+            "57520",
+            "37040",
+            "448952"
+          ]
+        },
+        "Probabilístico (BM25)": {
+          "ap": 1.0,
+          "recall": 1.0,
+          "top_3": [
+            "37040",
+            "57520",
+            "448952"
+          ]
+        },
+        "Vectorial (Embeddings)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "67069",
+            "114319",
+            "321639"
+          ]
+        }
+      }
+    },
+    {
+      "qid": "9332",
+      "consulta": "What can I do with a physical stock certificate for a now-mutual company?",
+      "delta_ap_sem_vs_lex": -1.0,
+      "relevantes": [
+        {
+          "doc_id": "271766",
+          "extracto": "I found the following on a stock to mutual conversion for insurance firms for Ohio. Pulling from that link,  Any domestic stock life insurance corporation, incorporated under a general law, may become a mutual life insur..."
+        }
+      ],
+      "resultados": {
+        "Binario (Jaccard)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "274156",
+            "52579",
+            "216300"
+          ]
+        },
+        "Vectorial (TF-IDF)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "212770",
+            "216581",
+            "142735"
+          ]
+        },
+        "Probabilístico (BM25)": {
+          "ap": 1.0,
+          "recall": 1.0,
+          "top_3": [
+            "271766",
+            "142735",
+            "271243"
+          ]
+        },
+        "Vectorial (Embeddings)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "271243",
+            "263321",
+            "48893"
+          ]
+        }
+      }
+    },
+    {
+      "qid": "9329",
+      "consulta": "Interactive Brokers: IOPTS and list of structured products",
+      "delta_ap_sem_vs_lex": -1.0,
+      "relevantes": [
+        {
+          "doc_id": "326991",
+          "extracto": "\"Interactive Brokers offers global securities trading. Notice that the security types are: cash, stock (STK), futures (FUT), options (OPT), futures options   (FOP), warrants (WAR), bonds, contracts for differences (CFD),..."
+        },
+        {
+          "doc_id": "523913",
+          "extracto": "I think an IOPT is a Dutch warrant.  Someone else might understand what this is."
+        }
+      ],
+      "resultados": {
+        "Binario (Jaccard)": {
+          "ap": 0.0714,
+          "recall": 0.5,
+          "top_3": [
+            "26789",
+            "122909",
+            "143917"
+          ]
+        },
+        "Vectorial (TF-IDF)": {
+          "ap": 1.0,
+          "recall": 1.0,
+          "top_3": [
+            "326991",
+            "523913",
+            "26789"
+          ]
+        },
+        "Probabilístico (BM25)": {
+          "ap": 0.7,
+          "recall": 1.0,
+          "top_3": [
+            "326991",
+            "394924",
+            "112393"
+          ]
+        },
+        "Vectorial (Embeddings)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "334383",
+            "573708",
+            "329182"
+          ]
+        }
+      }
+    },
+    {
+      "qid": "6410",
+      "consulta": "Will an ETF immediately reflect a reconstitution of underlying index",
+      "delta_ap_sem_vs_lex": -1.0,
+      "relevantes": [
+        {
+          "doc_id": "471723",
+          "extracto": "AAPL will not drop out of NASDAQ100 tomorrow. From your own quote: The fund and the index are rebalanced quarterly and reconstituted annually"
+        }
+      ],
+      "resultados": {
+        "Binario (Jaccard)": {
+          "ap": 1.0,
+          "recall": 1.0,
+          "top_3": [
+            "471723",
+            "85319",
+            "370086"
+          ]
+        },
+        "Vectorial (TF-IDF)": {
+          "ap": 1.0,
+          "recall": 1.0,
+          "top_3": [
+            "471723",
+            "87238",
+            "200360"
+          ]
+        },
+        "Probabilístico (BM25)": {
+          "ap": 1.0,
+          "recall": 1.0,
+          "top_3": [
+            "471723",
+            "454610",
+            "87238"
+          ]
+        },
+        "Vectorial (Embeddings)": {
+          "ap": 0.0,
+          "recall": 0.0,
+          "top_3": [
+            "454610",
+            "71230",
+            "276593"
+          ]
+        }
+      }
+    }
+  ]
+}
